@@ -30,7 +30,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* AppRouterCacheProvider: Ensures consistent caching and style hydration when using MUI with the App Router. */}
-        <AppRouterCacheProvider options={{ key: "css" }}>
+        {/* setting enableCssLayer: true ensures that styles are properly cached and injected, and also prevents hydration issues related to style mismatches. */}
+        <AppRouterCacheProvider options={{ key: "css", enableCssLayer: true }}>
           {/* StyledEngineProvider: Allows MUI's styles to be injected before other styles (due to injectFirst), making it easier to override MUI styles with Tailwind CSS or custom styles */}
           <StyledEngineProvider injectFirst>{children}</StyledEngineProvider>
         </AppRouterCacheProvider>
