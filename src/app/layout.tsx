@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { StyledEngineProvider } from "@mui/material/styles";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +29,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        {/* AppRouterCacheProvider: Ensures consistent caching and style hydration when using MUI with the App Router. */}
+        <AppRouterCacheProvider options={{ key: "css" }}>
+          {/* StyledEngineProvider: Allows MUI's styles to be injected before other styles (due to injectFirst), making it easier to override MUI styles with Tailwind CSS or custom styles */}
+          <StyledEngineProvider injectFirst>{children}</StyledEngineProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
